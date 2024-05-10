@@ -1,8 +1,8 @@
 # Saccharomycomorpha-psychra
-Genome assembly of [Saccharomycomorpha psychra](https://pubmed.ncbi.nlm.nih.gov/33448091/) a free-living, heterotrophic protist. Feeding osmotrophically
+This project aims to assemble the genome of [Saccharomycomorpha psychra](https://pubmed.ncbi.nlm.nih.gov/33448091/) a free-living, heterotrophic protest. 
 
 ## Cultering
-On organic-rich Potato Dextrose Agar medium (axenic).
+On organic-rich Potato Dextrose Agar medium (axenic) at 15°C. It feeds osmotrophically. 
 
 ## High-molecular-weight gDNA 
 One agar plate yields 2900 ng of DNA (59 ng/µl in 50 µl).
