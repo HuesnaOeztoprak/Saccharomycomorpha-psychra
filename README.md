@@ -1,5 +1,5 @@
 # Saccharomycomorpha-psychra
-Genome assembly of Saccharomycomorpha psychra a free-living, heterotrophic protist. Feeding osmotrophically
+Genome assembly of [Saccharomycomorpha psychra](https://pubmed.ncbi.nlm.nih.gov/33448091/) a free-living, heterotrophic protist. Feeding osmotrophically
 
 ## Cultering
 On organic-rich Potato Dextrose Agar medium (axenic).
