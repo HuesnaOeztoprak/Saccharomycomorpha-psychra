@@ -5,9 +5,8 @@ Genome assembly of Saccharomycomorpha psychra a free-living, heterotrophic proti
 On organic-rich Potato Dextrose Agar medium (axenic).
 
 ## High-molecular-weight gDNA 
-[protocol](https://www.protocols.io/view/modified-salting-out-method-for-high-molecular-wei-c2igycbw.html)
 One agar plate yields 2900 ng of DNA (59 ng/µl in 50 µl).
-One blobb yields 600 ng of DNA (30 ng/µl in 20 µl).
+One blobb yields 600 ng of DNA (30 ng/µl in 20 µl). [protocol](https://www.protocols.io/view/modified-salting-out-method-for-high-molecular-wei-c2igycbw.html)
 
 ## Genome properties
 Estimated genome size 100 MB
