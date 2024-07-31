@@ -4,7 +4,7 @@ This project aims to assemble the genome of [_Saccharomycomorpha psychra_](https
 ### Cultering
 🧫 On organic-rich Potato Dextrose Agar medium (axenic) at 15°C. It feeds osmotrophically. 
 
-### High-molecular-weight _g_ DNA 
+### High-molecular-weight gDNA 
 One agar plate yields 2900 ng of DNA (59 ng/µl in 50 µl).
 One blob yields 600 ng of DNA (30 ng/µl in 20 µl). [protocol](https://www.protocols.io/view/modified-salting-out-method-for-high-molecular-wei-c2igycbw.html)
 
