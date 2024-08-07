@@ -5,8 +5,9 @@
 samtools v1.9
 TrimGalore v0.6.4_dev
 Trinity v2.14
+fastp 0.21.0
 ```
-## Prepare Reads
+## Trim raw reads
 #### trim adapters with [trimgalore](https://github.com/FelixKrueger/TrimGalore)
 ```
 trim_galore --fastqc --gzip -j 8 --paired --max_n 0 \
