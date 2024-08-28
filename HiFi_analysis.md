@@ -13,7 +13,8 @@ Smudgeplot
 kat hist -o kat_hist hifi_reads.fastq.gz
 kat gcp -o kat_gcp hifi_reads.fastq.gz
 ```
-![hist_Spa255 hifi_reads_x1000](https://github.com/user-attachments/assets/ca8b2f4a-c8c0-41fa-b7cc-2c2264813c1c) ![gcp_xSpa255 hifi_reads_x400](https://github.com/user-attachments/assets/54eaaf6e-6cd0-4564-b9e4-2ec847e5aa32)
+![hist_Spa255 hifi_reads_x1000](https://github.com/user-attachments/assets/ca8b2f4a-c8c0-41fa-b7cc-2c2264813c1c) ![gcp_Spa255 hifi_reads mx](https://github.com/user-attachments/assets/a062062f-dfdf-4d58-b2d5-26bca81dd226)
+
 
 
 
