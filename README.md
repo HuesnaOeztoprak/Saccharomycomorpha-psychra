@@ -1,4 +1,4 @@
-# _Saccharomycomorpha-psychra_ strain 255
+# _Saccharomycomorpha-psychra_
 This project aims to assemble the genome of [_Saccharomycomorpha psychra_](https://pubmed.ncbi.nlm.nih.gov/33448091/) a free-living, heterotrophic protist. 🦠 
 
 ### Cultering
