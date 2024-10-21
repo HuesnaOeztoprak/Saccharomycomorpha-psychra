@@ -1,1 +1,44 @@
+# Phased assembly pipeline
 
+## *De novo* assembly
+
+[hifiasm](https://github.com/chhylp123/hifiasm) version 0.16.1-r375
+```sh
+hifiasm -o assembly hifi_reads.fastq.gz
+```
+[PECAT](https://github.com/lemene/PECAT)) version 
+```sh
+pecat.pl config cfg
+  #### include cfg script?
+```
+## Scaffolding
+[RagTag](https://github.com/malonge/RagTag)
+```sh
+ragtag.py scaffold ref.fasta query.fasta
+```
+
+?[instaGRAAL](https://github.com/koszullab/instaGRAAL) version 0.1.6 no-opengl branch
+
+```sh
+instagraal --level 5 --cycles 100 hicstuff_out assembly.fasta instagraal_out
+```
+
+```sh
+instagraal-polish -m polishing -f assembly.purged.fasta -j NNNNNNNNNN \
+	-i instagraal_out/hicstuff_out/test_mcmc5/info_frags.txt \
+	-o assembly.hic_scaffolds.fasta
+```
+
+?## Polishing 
+
+[HyPo](https://github.com/kensung-lab/hypo) v1.0.3
+[minimap2](https://github.com/lh3/minimap2) version 2.24r1122
+[SAMtools](https://github.com/samtools/samtools) version 1.11
+```sh
+minimap2 --secondary=no --MD -ax map-hifi gap_filled.fasta hifi_reads.fastq.gz | samtools view -Sb - > mapped-ccs.bam
+samtools sort -o mapped-ccs.sorted.bam mapped-ccs.bam
+samtools index mapped-ccs.sorted.bam
+
+hypo -d gap_filled.fasta -r hifi_reads.fastq.gz -s 200m -c 100 -b mapped-ccs.sorted.bam \
+	-o polished.fasta
+```
