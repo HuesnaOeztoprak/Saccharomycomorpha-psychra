@@ -11,6 +11,26 @@ hifiasm -o assembly hifi_reads.fastq.gz
 pecat.pl config cfg
   #### include cfg script?
 ```
+## [Purging](https://github.com/dfguan/purge_dups)
+```sh
+minimap2 -x map-hifi -t 30 ${i}.fasta hifi_reads.fastq.gz | gzip -c - > minimap2_${i}.paf.gz
+purge_dups/bin/split_fa draft_assembly.fasta > ${i}.split
+minimap2 -xasm5 -DP ${i}.split ${i}.split | gzip -c - > ${i}.split.self.paf.gz
+purge_dups/bin/pbcstat minimap2_${i}.paf.gz
+
+        #check hifiasm.purge_${i}.png (k-mer spectra) to set cutoffs
+       
+purge_dups/bin/calcuts -l 1 -m 300 -u 1000 PB.stat > cutoffs 2>calcults.log
+purge_dups/scripts/hist_plot.py -c cutoffs PB.stat hifiasm.purge_${i}.png
+        #purge haplotigs and overlaps
+purge_dups/bin/purge_dups -2 -T cutoffs -c PB.base.cov ${i}.split.self.paf.gz> dups.bed 2>hifiasm.purge_${i}.log
+        #get purged primary and haplotig seq from draft assembly
+/purge_dups/bin/get_seqs dups.bed draft_assembly.fasta
+```
+```sh
+mv purged.fa hifiasm.purged.alt1.fasta
+mv hap.fa hifiasm.purged.alt2.fasta
+```
 ## Scaffolding
 [RagTag](https://github.com/malonge/RagTag)
 ```sh
