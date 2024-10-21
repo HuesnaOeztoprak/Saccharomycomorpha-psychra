@@ -12,6 +12,8 @@ kat comp -o kat_comp_hap0 hifi_reads.fastq.gz assembly.fasta
 busco -i assembly.fasta -m genome -c 20 -o busco_out_eukaryota_odb10 -l eukaryota_odb10
 busco -i assembly.fasta -m genome -c 20 -o busco_out_bacteria_odb10 -l bacteria_odb10
 busco -i assembly.fasta -m genome -c 20 -o busco_out_fungi_odb10 -l fungi_odb10
+busco -i assembly.fasta -m genome -c 20 -o busco_out_alveolata_odb10 -l alveolata_odb10
+busco -i assembly.fasta -m genome -c 20 -o busco_out_stramenopiles_odb10 -l stramenopiles_odb10
 
 ```
 ### reads vs assembly
@@ -24,7 +26,7 @@ minimap2 -ax map-hifi assembly.fasta hifi_reads.fastq.gz | samtools view -b | sa
 ```sh
 kat sect -t 16 -o cov_GC% assembly.fasta hifi_reads.fastq
 ```
-#### not done
+#### 
 [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) version 2.6.0
 ```sh
 blastn -query assembly.fasta -db nt -outfmt "6 qseqid staxids bitscore std sscinames scomnames" \
