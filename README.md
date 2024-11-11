@@ -16,6 +16,10 @@ heterozygous
 ### Sequencing plan
 PacBio HiFi reads: low input protocol & Arima Hi-C 
 50X coverage for long reads
+> [!NOTE]
+> Delivered are samples 226759,226762, from run 240725_A00620_0407_AHVJ5MDMXY_Juli12
+> m84115_240815_133423_s3.hifi_reads.bc2097.bam ; 14,22 Gb ; 1605721 CCS_reads
+> Spa255.hifi_reads.fastq.gz
 
 #### RNA
 Isolated using RNeasy Plant Mini Kit for RNA Extraction (Qiagen)
