@@ -1,4 +1,18 @@
 # Genome annotation
+## expected software version
+	EDTA v1.9.8 	
+	Bedtools Version: v2.26.0
+	STAR v2.5.1a
+	Trinity v2.1.1
+	PASA 2.5.2
+	stringtie v2.2.0
+	TransDecoder 5.5.0
+	EVidenceModeler 1.1.1
+	BRAKER2 v2.1.6
+	gffread v0.12.1
+	emapper 2.1.6
+	InterProScan version 5.61-93.0
+	clusterProfiler v4.6.2
 
 ## software requirements (version)
 ```
@@ -7,7 +21,13 @@ TrimGalore v0.6.4_dev
 Trinity v2.14
 fastp 0.21.0
 ```
-## Trim raw reads
+##  GenomeMask
+### 1 Hardmask
+	  EDTA.pl --genome polished.fasta --sensitive 1 --anno 1  --threads 50 --overwrite 1
+### 2 Softmask
+	  bedtools maskfasta -fi unpolished.fasta -fo polished.softmask.fasta -bed polished.fa.mod.EDTA.TEanno.gff3 -soft
+   
+## Trim raw RNA reads
 #### trim adapters with [trimgalore](https://github.com/FelixKrueger/TrimGalore)
 ```
 trim_galore --fastqc --gzip -j 8 --paired --max_n 0 \
