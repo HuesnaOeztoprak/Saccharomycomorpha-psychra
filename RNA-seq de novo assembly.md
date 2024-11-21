@@ -66,3 +66,25 @@ busco -m transcriptome -c 15 -l eukaryota_odb10 --update-data -o busco_euk -i tr
 busco -m transcriptome -c 15 -l bacteria_odb10 --update-data -o busco_euk -i trinity_v2.14.Trinity.fasta
 busco -m transcriptome -c 15 -l archaea_odb10 --update-data -o busco_euk -i trinity_v2.14.Trinity.fasta
 ```
+## [Funannotate](https://github.com/nextgenusfs/funannotate/tree/master)
+### RNA-seq mediated training of Agustus/GeneMArk
+```
+funannotate train -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out -l Rna.FastP_R1.fastq.gz -r Rna.FastP_R2.fastq.gz --cpus 40 --trinity /home/hoeztopr/Data/hoeztopr/Spa/Transcriptome/fastP/trinity_v2.14_${i}_fastP.Trinity.fasta --no_trimmomatic --no_normalize_reads --species "Saccharomycomorpha"
+```
+### GENEMARK
+```
+gmes_linux_64/gmes_petap.pl --ES --max_intron 3000 --soft_mask 2000 --cores 40 --sequence Spa255.polished.alt1.softmasked.fasta
+```
+### Gene prediction
+```
+/NVME/Software/funannotate-docker predict -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out \
+-s "Saccharomycomorpha" --cpus 40 --organism other --busco_db protists --optimize_augustus --weights glimmerhmm:0 snap:0 --genemark_gtf genemark.gtf
+```
+### eggNOG mapper
+
+### Interproscan
+
+### Assign functional annotation to gene predictions
+```
+funannotate annotate -i funannotate_${i}_out --cpus 60 --eggnog out.emapper.annotations --iprscan InterProScan-5.54-87.0.xml --busco_db funannotate_db/protists --force
+```
