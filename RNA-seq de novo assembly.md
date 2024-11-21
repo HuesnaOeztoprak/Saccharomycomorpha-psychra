@@ -69,7 +69,11 @@ busco -m transcriptome -c 15 -l archaea_odb10 --update-data -o busco_euk -i trin
 ## [Funannotate](https://github.com/nextgenusfs/funannotate/tree/master)
 ### RNA-seq mediated training of Agustus/GeneMArk
 ```
-funannotate train -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out -l Rna.FastP_R1.fastq.gz -r Rna.FastP_R2.fastq.gz --cpus 40 --trinity /home/hoeztopr/Data/hoeztopr/Spa/Transcriptome/fastP/trinity_v2.14_${i}_fastP.Trinity.fasta --no_trimmomatic --no_normalize_reads --species "Saccharomycomorpha"
+funannotate train -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out --cpus 40 \
+-l Rna.FastP_R1.fastq.gz \
+-r Rna.FastP_R2.fastq.gz \
+--trinity trinity_v2.14_${i}_fastP.Trinity.fasta \
+--no_trimmomatic --no_normalize_reads --species "Saccharomycomorpha"
 ```
 ### GENEMARK
 ```
