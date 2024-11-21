@@ -81,8 +81,9 @@ gmes_linux_64/gmes_petap.pl --ES --max_intron 3000 --soft_mask 2000 --cores 40 -
 -s "Saccharomycomorpha" --cpus 40 --organism other --busco_db protists --optimize_augustus --weights glimmerhmm:0 snap:0 --genemark_gtf genemark.gtf
 ```
 ### eggNOG mapper - [web application](http://eggnog-mapper.embl.de/))
+```
 emapper.py --cpu 20 --mp_start_method forkserver --data_dir /dev/shm/ -o out --output_dir /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq --temp_dir /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq --override -m diamond --dmnd_ignore_warnings -i /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/queries.fasta --evalue 0.001 --score 60 --pident 40 --query_cover 20 --subject_cover 20 --itype proteins --tax_scope auto --target_orthologs all --go_evidence non-electronic --pfam_realign none --report_orthologs --decorate_gff yes --excel > /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/emapper.out 2> /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/emapper.err
-
+```
 ### Interproscan - using [Galaxy](https://usegalaxy.eu/jobs/)
 
 ### Assign functional annotation to gene predictions
