@@ -24,7 +24,7 @@ awk -F'\t' '$5 == "True" {print $1}' Phobius_summary_Spa255.tsv > secreted_prote
 ```sh
 python extract_secreted_proteins.py
 ```
-### [SecretomeP-2.0](https://services.healthtech.dtu.dk/services/SecretomeP-2.0/)
+### [SecretomeP-2.0](https://services.healthtech.dtu.dk/services/SecretomeP-2.0/) - ab initio predictions of non-classical i.e. not signal peptide triggered protein secretion
 ##### As max file size is limited to 100 seq
 ```sh
 seqkit split -f secreted_proteins.fasta -s 100 -O fasta_chunks/
@@ -42,7 +42,7 @@ awk 'NR==1 || $4 >= 0.6' SecretomeP_AllResults.tsv > SecretomeP_Filtered.tsv
 ```sh
 cut -f5 SecretomeP_Filtered.tsv | tail -n +2 > Secreted_Protein_IDs.txt
 ```
-### [SignalP 6.0]()
+### [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/) - Prediction of Signal Peptides and their cleavage sites in all domains of life
 ##### As max file size is limited to 1000 proteins
 ```sh
 csplit -s -z proteins.fasta '/^>/' '{*}'
