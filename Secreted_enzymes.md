@@ -45,11 +45,7 @@ cut -f5 SecretomeP_Filtered.tsv | tail -n +2 > Secreted_Protein_IDs.txt
 ### [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/) - Prediction of Signal Peptides and their cleavage sites in all domains of life
 ##### As max file size is limited to 1000 proteins
 ```sh
-csplit -s -z proteins.fasta '/^>/' '{*}'
-mkdir split_fastas
-mv xx* split_fastas/
-cd split_fastas
-for i in xx*; do mv "$i" "$i.fasta"; done
+
 ```
 #### Run on website
 ##### Merge single outputs into one file
@@ -60,3 +56,6 @@ cat signalp_results/*.txt > SignalP_AllResults.txt
 ```sh
 awk '$3 == "SP(Sec/SPI)" || NR==1' SignalP_AllResults.txt > SignalP_Secreted.txt
 ```
+#### Run [DeepLoc2.1]()
+
+#### Run [NetGPI](https://services.healthtech.dtu.dk/services/NetGPI-1.1/)
