@@ -8,7 +8,8 @@ python run_dbcan.py \
     --out_dir /home/hoeztopr/Scratch/hoeztopr/spa/Transcriptome/Carbohydrate_active_enzymes/dbcan2_Spa255 \
     --tools 'hmmer' 'diamond' --dia_cpu 12 --hmm_cpu 12 \
     --cgc_sig_genes all \
-    --db_dir /NVME/Software/dbCAN2/run_dbcan/db/```
+    --db_dir /NVME/Software/dbCAN2/run_dbcan/db/
+```
 #### Run dbcan2 with Hotpep
 ##### split files for hotpep
 ```sh
@@ -19,6 +20,7 @@ python split_for_hotpep.py
 python train_many_organisms_many_families.py Input_Spa255 4 5 5
 ```
 ###### Input_Spa255: your input folder 4: number of threads (should match orfsX.txt count) 5: minimum hits 5: minimum frequency
+
 ##### rename output.txt to dbcan2_Spa255/Hotpep.out
 ##### rerun run_dbcan.py with hotpep
 ```sh
