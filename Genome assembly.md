@@ -4,13 +4,15 @@
 
 [hifiasm](https://github.com/chhylp123/hifiasm) version 0.16.1-r375
 ```sh
-hifiasm -o assembly hifi_reads.fastq.gz
+hifiasm -o assembly -l 0 hifi_reads.fastq.gz 
 ```
+	##### The hifiasm assembly was manually curated using the graphical assembly
 [PECAT](https://github.com/lemene/PECAT)) version 
 ```sh
 pecat.pl config cfg
   #### include cfg script?
 ```
+
 ## [Purging](https://github.com/dfguan/purge_dups)
 ```sh
 minimap2 -x map-hifi -t 30 ${i}.fasta hifi_reads.fastq.gz | gzip -c - > minimap2_${i}.paf.gz
@@ -33,6 +35,7 @@ mv hap.fa hifiasm.purged.alt2.fasta
 ```
 ## Scaffolding
 [RagTag](https://github.com/malonge/RagTag)
+	#### The polished pecat asembly was used to scaffold the curated hifiasm assembly
 ```sh
 ragtag.py scaffold ref.fasta query.fasta
 ```
