@@ -36,7 +36,3 @@ smudgeplot.py hetkmers -o kmcdb_L"$L"_U"$U" < kmcdb_L"$L"_U"$U".dump
 smudgeplot.py plot kmcdb_L"$L"_U"$U"_coverages.tsv
 ```
 ![spa255_smudgeplot_smudgeplot](https://github.com/user-attachments/assets/ad0e8696-6bba-4d47-9a7f-6ba06e548b86)
-
-#### [GenomeScope](https://github.com/tbenavi1/genomescope2.0)
-![Genomescope_Spa255](https://github.com/user-attachments/assets/028df1fc-77cf-41f7-b9f6-0efb97e83463)
-
