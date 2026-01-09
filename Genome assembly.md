@@ -2,7 +2,7 @@
 
 ## *De novo* assembly
 
-[hifiasm](https://github.com/chhylp123/hifiasm) version 0.19.4
+[hifiasm](https://github.com/chhylp123/hifiasm) version 0.25
 ```sh
 hifiasm -o assembly -l 0 hifi_reads.fastq.gz 
 ```
