@@ -84,7 +84,26 @@ gmes_linux_64/gmes_petap.pl --ES --max_intron 3000 --soft_mask 2000 --cores 40 -
 /NVME/Software/funannotate-docker predict -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out \
 -s "Saccharomycomorpha" --cpus 40 --organism other --busco_db protists --optimize_augustus --weights glimmerhmm:0 snap:0 --genemark_gtf genemark.gtf
 ```
-### eggNOG mapper - [web application](http://eggnog-mapper.embl.de/))
+## [BRAKER](https://github.com/Gaius-Augustus/BRAKER)
+### 
+```
+/home/hoeztopr/miniconda3/envs/funannotate_env/bin/hisat2 -x Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta -p 40 -1 Spa255.rna.FastP_R1.fastq.gz -2 Spa255.rna.FastP_R2.fastq.gz | samtools view -b -@ 30 | samtools sort -@ 30 -o mapping_hisat2.Spa255.hifiasm.v25.ragtag.pecat.softmasked.bam
+```
+### use braker with GENEMARK, PROTHINT, AUGUSTUS ...
+```
+raker.pl --species Saccharomycomorpha_strain255 --genome Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta --gff3 --UTR off --bam  mapping_hisat2.Spa255.hifiasm.v25.ragtag.pecat.softmasked.bam --threads 40 --useexisting --PROTHINT_PATH /home/hoeztopr/Data/hoeztopr/gmes_linux_64/ProtHint/bin/
+```
+### keep longest isoform
+```
+agat_sp_keep_longest_isoform.pl --gff ${PWD}/braker.gff3 -o ${PWD}/Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.gff3
+```
+### generate protein fasta
+```
+funannotate util gff2prot -g Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.gff3 -f ../Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta > Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta
+```
+
+
+### eggNOG mapper - [web application](http://eggnog-mapper.embl.de/)) -- needs to be updated
 ```
 emapper.py --cpu 20 --mp_start_method forkserver --data_dir /dev/shm/ -o out --output_dir /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq --temp_dir /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq --override -m diamond --dmnd_ignore_warnings -i /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/queries.fasta --evalue 0.001 --score 60 --pident 40 --query_cover 20 --subject_cover 20 --itype proteins --tax_scope auto --target_orthologs all --go_evidence non-electronic --pfam_realign none --report_orthologs --decorate_gff yes --excel > /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/emapper.out 2> /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/emapper.err
 ```
