@@ -45,16 +45,17 @@ cut -f5 SecretomeP_Filtered.tsv | tail -n +2 > Secreted_Protein_IDs.txt
 ### [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/) - Prediction of Signal Peptides and their cleavage sites in all domains of life
 ##### As max file size is limited to 1000 proteins
 ```sh
-
+seqkit split -s 1000 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta -O split_fastas
 ```
 #### Run on website
 ##### Merge single outputs into one file
 ```sh
-cat signalp_results/*.txt > SignalP_AllResults.txt
+tail -q -n +3 signalP6.0/output*/prediction_results.txt >> SignalP_AllResults.txt
 ```
 ##### Filter the secreted proteins
 ```sh
 awk '$3 == "SP(Sec/SPI)" || NR==1' SignalP_AllResults.txt > SignalP_Secreted.txt
+awk '$3 == "SP"' SignalP_AllResults.txt > SignalP_Secreted.txt
 ```
 #### Run [DeepLoc2.1]()
 
