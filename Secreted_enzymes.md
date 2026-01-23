@@ -1,4 +1,12 @@
 # Functional motifs in secreted enzymes
+
+### Prepare fasta file
+```
+sed -E 's/^>([^ ]+).*/>\1/' \
+/home/hoeztopr/Scratch/hoeztopr/spa/assembly/final/Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta \
+> Spa255_fixed.fasta
+```
+
 ## Identify secreted enzymes
 ### [Phobius](https://phobius.sbc.su.se/) - A combined transmembrane topology and signal peptide predictor
 #### Count secreted and transmembrane domains
