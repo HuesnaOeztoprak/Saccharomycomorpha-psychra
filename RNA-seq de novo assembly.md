@@ -101,7 +101,8 @@ agat_sp_keep_longest_isoform.pl --gff ${PWD}/braker.gff3 -o ${PWD}/Spa255.hifias
 ```
 funannotate util gff2prot -g Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.gff3 -f ../Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta > Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta
 ```
-
+### eggNOG mapper version 2.1.4 
+#### db -rwxrwxr-x 1 shangao shangao 8,7G Mär  2  2021 /RAID/Data/databases/eggnog-mapper-data/eggnog_proteins.dmnd
 
 ### eggNOG mapper - [web application](http://eggnog-mapper.embl.de/)) -- needs to be updated
 ```
