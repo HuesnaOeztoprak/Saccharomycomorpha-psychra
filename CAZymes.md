@@ -16,6 +16,8 @@ python run_dbcan.py \
 python split_for_hotpep.py
 ```
 ##### run hotpep with splitted files
+cd /NVME/Software/dbCAN2/run_dbcan/db/Hotpep
+
 ```sh
 python train_many_organisms_many_families.py Input_Spa255 4 5 5
 ```
