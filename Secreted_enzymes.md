@@ -97,3 +97,40 @@ grep 'Signal peptide' DeepLoc2.1_AllResults.txt | wc -l
 
 
 #### Run [NetGPI](https://services.healthtech.dtu.dk/services/NetGPI-1.1/)
+
+
+## Homologous analysis
+        ##### 1.     Blasting against Fungal and Bacterial and Protistan DB
+#/home/jbast/anaconda3/envs/EDTA/bin/blastp
+#/RAID/Data/databases/FunSecKB/Fungal_secretome.fasta
+
+#### Against Fungal Secretomes
+#makeblastdb -in /RAID/Data/databases/FunSecKB/Fungal_secretome.fasta -dbtype prot -out FunSecKB_DB
+
+#blastp -query secreted_proteins.fasta -db /RAID/Data/databases/FunSecKB/FunSecKB_DB -outfmt 6 -evalue 1e-5 -num_threads 40 > fungal_hits.txt
+        #done
+
+#### Against Bacterial Secretomes (LAB-Secretome)
+#blastp -query your_secreted.fasta -db LAB_Secretome.fasta -outfmt 6 -evalue 1e-5 > bacterial_hits.txt
+
+#### Against ProtSecKB (protists)
+#blastp -query your_secreted.fasta -db ProtSecKB.fasta -outfmt 6 -evalue 1e-3 > protist_hits.txt
+
+#####      Parameters: -evalue 1e-5 for stringent fungal/bacterial comparisons && -evalue 1e-3 for broader protistan searches (higher diversity)
+
+
+        ### 2.     Orthofinder
+        #fungi to do!
+#orthofinder -f your_secreted.fasta FunSecKB.fasta LAB_Secretome.fasta ProtSecKB.fasta
+#mkdir orthofinder_input
+#cp /home/hoeztopr/Data/databases/FunSecKB/*.fas ./orthofinder_input
+#cp secreted_proteins.fasta ./orthofinder_input
+#cp /home/hoeztopr/Data/databases/SecretomeP2.0/secretome_species_split/*.fasta ./orthofinder_input
+
+#/NVME/Software/OrthoFinder_source/orthofinder.py -f orthofinder_input -t 40 -a 40  # Adjust threads (-t) and parallel analyses (-a) as needed
+
+#/home/hoeztopr/Scratch/hoeztopr/spa/Transcriptome/secretion/orthologs
+docker run --rm -u $(id -u) -v "$PWD":"$(pwd)" -w "$(pwd)" davidemms/orthofinder orthofinder -f orthofinder_input -t 40 -a 40
+
+
+
