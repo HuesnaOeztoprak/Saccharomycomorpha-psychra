@@ -1,6 +1,6 @@
 # Identiyfiny Functional motifs in secreted enzymes
 
-### Adjust fasta file format
+### Adjust fasta file format (no terminal *)
 ```
 sed -E 's/^>([^ ]+).*/>\1/' final.braker.dedup.fasta > fixed.fasta
 ```
@@ -46,7 +46,7 @@ awk '$3 == "SP(Sec/SPI)" || NR==1' SignalP_AllResults.txt > SignalP_Secreted.txt
 awk '$3 == "SP"' SignalP_AllResults.txt > SignalP_Secreted.txt
 ```
 
-#### Run [DeepLoc2.1]()
+### Run [DeepLoc2.1]()
 ##### As max file size is limited to 500 seq
 ```sh
 seqkit split -f secreted_proteins.fasta -s 500 -O split_fastas_deeploc/
@@ -76,7 +76,7 @@ tail -q -n +2 output/*_results_DeepLoc2.1.tsv >> DeepLoc2.1_AllResults.txt
 ```
 
 
-#### Run [NetGPI](https://services.healthtech.dtu.dk/services/NetGPI-1.1/)
+### Run [NetGPI](https://services.healthtech.dtu.dk/services/NetGPI-1.1/)
                 #Step 1: Filter Secretory Pathway Proteins from signalP output: use SignalP_secreted_proteins.fasta
 
                 #Step 2: Split SignalP_Secretory.fasta into 5000-Sequence Batches
