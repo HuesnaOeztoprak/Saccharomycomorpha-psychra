@@ -86,11 +86,11 @@ competing_filter = (
 
 df_filtered["Compartment_Conflict"] = ~competing_filter  # True if flagged
 
-# ✅ Apply final filtering
+# Apply competing_filter 
 df_final = df_filtered[competing_filter]
 
 # Save updated dataset
 df_final.to_csv("final_secreted_proteins.csv", sep="\t", index=False)
 
-print("✅ Filtering complete! File saved as 'final_secreted_proteins.csv'.")
+print("Filtering complete! Wohoo! File saved as 'final_secreted_proteins.csv'.")
 print(df_final[["Protein_ID", "SP_Conflict_Resolution", "TM_Conflict_Resolution", "GPI_Conflict", "Compartme
