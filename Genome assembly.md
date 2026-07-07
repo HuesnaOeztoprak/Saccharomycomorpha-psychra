@@ -6,7 +6,7 @@
 ```sh
 hifiasm -o assembly -l 0 hifi_reads.fastq.gz 
 ```
-	##### The hifiasm assembly was manually curated using the graphical assembly
+##### The hifiasm assembly was manually curated using the graphical assembly
 [PECAT](https://github.com/lemene/PECAT)
 ```sh
 pecat.pl config cfg
