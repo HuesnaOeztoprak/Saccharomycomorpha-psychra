@@ -47,15 +47,19 @@ awk '$3 == "SP"' SignalP_AllResults.txt > SignalP_Secreted.txt
 ```
 
 #### Run [DeepLoc2.1]()
-
-##### Merge single outputs into one file
+##### As max file size is limited to 500 seq
+```sh
+seqkit split -f secreted_proteins.fasta -s 500 -O split_fastas_deeploc/
 ```
-#tab delim
+##### Merge single outputs into one file
+```sh
+#to ensure tab delim
 for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
 do
 awk 'BEGIN {FS=","; OFS="\t"} {$1=$1; print}' output/results_${i}.csv > output/${i}_results_DeepLoc2.1.tsv
 done
 
+## this is how it is supposed to look like:
 head output/1_results_DeepLoc2.1.tsv -n 2
 #Protein_ID      Localizations   Signals Membrane types  Cytoplasm       Nucleus Extracellular   Cell membrane   Mitochondrion   Plastid Endoplasmic reticulum   Lysosome/Vacuole        Golgi apparatus Peroxisome Peripheral       Transmembrane   Lipid anchor >
 #g1.t1   Cytoplasm|Nucleus               Soluble 0.6338000297546387      0.6726999878883362      0.047600001096725464    0.07289999723434448     0.17030000686645508     0.010099999606609344    0.191899999976158140.09520000219345093      0.10859999805688858  >
@@ -69,11 +73,6 @@ head -n 1 output/1_results_DeepLoc2.1.tsv > DeepLoc2.1_AllResults.txt
 
 # Merge all files, skipping headers in the rest
 tail -q -n +2 output/*_results_DeepLoc2.1.tsv >> DeepLoc2.1_AllResults.txt
-####
-echo Extracellular
-grep 'Extracellular' DeepLoc2.1_AllResults.txt | wc -l
-echo Signal peptide
-grep 'Signal peptide' DeepLoc2.1_AllResults.txt | wc -l
 ```
 
 
