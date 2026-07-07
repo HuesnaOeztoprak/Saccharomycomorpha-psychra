@@ -1,10 +1,10 @@
 # Functional motifs in secreted enzymes
 
-### Prepare fasta file
+### Adjust fasta file format
 ```
 sed -E 's/^>([^ ]+).*/>\1/' \
-/home/hoeztopr/Scratch/hoeztopr/spa/assembly/final/Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta \
-> Spa255_fixed.fasta
+final.braker.dedup.fasta \
+> fixed.fasta
 ```
 
 ## Identify secreted enzymes
