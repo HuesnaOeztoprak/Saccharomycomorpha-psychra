@@ -13,8 +13,8 @@ pecat.pl config cfg
 ```
 
 ## Scaffolding
-[RagTag](https://github.com/malonge/RagTag)
-	#### The polished pecat asembly was used to scaffold the curated hifiasm assembly
+[RagTag](https://github.com/malonge/RagTag) version 2.1.0
+	 ##### The polished pecat asembly was used to scaffold the curated hifiasm assembly
 ```sh
 ragtag.py scaffold hifiasm_assembly.fasta pecat_assembly.fasta
 ```
