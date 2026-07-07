@@ -145,3 +145,20 @@ output_protein_type.txt: list of anchored and not anchored GPI
 output_mature.fasta: proteins which are GPI-Anchored (82)
 output.gff3: annotation of set
 
+### Generate a combined dataframe and filter final set of secreted proteins.
+
+```sh
+python 01_get_dataframe.py
+```
+
+```sh
+python 02_filterin_dataframe.py
+```
+
+```sh
+bash 03_extract_protein_sequences.sh
+```
+
+```sh
+python 04_extract_protein_sequences.py
+```
