@@ -1,37 +1,17 @@
-# Functional motifs in secreted enzymes
+# Identiyfiny Functional motifs in secreted enzymes
 
 ### Adjust fasta file format
 ```
-sed -E 's/^>([^ ]+).*/>\1/' \
-final.braker.dedup.fasta \
-> fixed.fasta
+sed -E 's/^>([^ ]+).*/>\1/' final.braker.dedup.fasta > fixed.fasta
 ```
 
-## Identify secreted enzymes
 ### [Phobius](https://phobius.sbc.su.se/) - A combined transmembrane topology and signal peptide predictor
-#### Count secreted and transmembrane domains
+#### Count secreted and transmembrane domains from Phobius output:
 ```sh
-python count_SP+TM_domains.py
+python 01_count_SP+TM_domains.py
 ```
-#### Merging Phobius outout with KO terms
-##### extract secreted proteins (5th coloum)
-```sh
-awk -F'\t' '$5 == "True"' Phobius_summary_Spa255.tsv > Secreted_Proteins.tsv
-KOs.txt only with ~5k hits I will use KOs_emapper with 5k KOs
-python merge_KO_data.py
-```
-##### isolate all the KO terms of the secreted proteins
-```sh
-#cut -f8 Secreted_Proteins_KO.tsv | sort | uniq > Unique_KO_Secreted_Values.txt
-```
-##### isolate Proein_IDs of secreted proteins
-```sh
-awk -F'\t' '$5 == "True" {print $1}' Phobius_summary_Spa255.tsv > secreted_protein_IDs.txt
-```
-##### extract corresponding protein sequences
-```sh
-python extract_secreted_proteins.py
-```
+
+
 ### [SecretomeP-2.0](https://services.healthtech.dtu.dk/services/SecretomeP-2.0/) - ab initio predictions of non-classical i.e. not signal peptide triggered protein secretion
 ##### As max file size is limited to 100 seq
 ```sh
@@ -60,11 +40,12 @@ seqkit split -s 1000 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta -O split
 ```sh
 tail -q -n +3 signalP6.0/output*/prediction_results.txt >> SignalP_AllResults.txt
 ```
-##### Filter the secreted proteins
+##### Extract the secreted proteins
 ```sh
 awk '$3 == "SP(Sec/SPI)" || NR==1' SignalP_AllResults.txt > SignalP_Secreted.txt
 awk '$3 == "SP"' SignalP_AllResults.txt > SignalP_Secreted.txt
 ```
+
 #### Run [DeepLoc2.1]()
 
 ##### Merge single outputs into one file
@@ -97,3 +78,27 @@ grep 'Signal peptide' DeepLoc2.1_AllResults.txt | wc -l
 
 
 #### Run [NetGPI](https://services.healthtech.dtu.dk/services/NetGPI-1.1/)
+                #Step 1: Filter Secretory Pathway Proteins from signalP output: use SignalP_secreted_proteins.fasta
+
+                #Step 2: Split SignalP_Secretory.fasta into 5000-Sequence Batches
+#Use seqkit to split into 5000-sequence files:  
+        #seqkit split -s 5000 ../SignalP_secreted_proteins.fasta -O split_fastas_netgpi
+
+#Now the folder split_fastas_netgpi/ contains:
+        #SignalP_Secretory.part_001.fasta
+        #SignalP_Secretory.part_002.fasta
+#Each file has ≤ 5000 sequences.
+
+                #Step 3: Submit to NetGPI
+#Manual Steps:
+#Go to: NetGPI Server
+#Upload a batch file (e.g., SignalP_Secretory.part_001.fasta).
+#Choose "Short Output" (recommended for high-throughput).
+#Run the Prediction & Download the Results.
+#Repeat for all batch files.
+
+        #output: GPI anchors that keep them attached to the outer face of the plasma membrane
+output_protein_type.txt: list of anchored and not anchored GPI
+output_mature.fasta: proteins which are GPI-Anchored (82)
+output.gff3: annotation of set
+
