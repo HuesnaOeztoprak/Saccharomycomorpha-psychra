@@ -45,72 +45,40 @@ fastp -q 20 -u 5 -l 25 -y -n 0 --detect_adapter_for_pe --dont_overwrite --thread
 --out1 RNA.trimmed_end1.fastq.gz --out2 RNA.trimmed_end2.fastq.gz \
 -h RNA_FastP.html -j RNA_FastP.json
 ```
-## RNA-Seq _de novo_ Assembly - using [Trinity](https://github.com/trinityrnaseq/trinityrnaseq/wiki)
-```
-Trinity --seqType fq --max_memory 100G \
---left RNA.trimmed_end1.fastq.gz \
---right RNA.trimmed_end2.fastq.gz \
---CPU 40 --output trinity_v2.14
-```
-#### get trinity statistics
-```
-util/TrinityStats.pl trinity_v2.14.Trinity.fasta > Trinity_v214_Stats.txt
-```
-#### Index Trinity.fasta file
-```
-samtools faidx trinity_v2.14.Trinity.fasta -o TrinityIndexed.fasta
-```
-#### check initial completeness of trinity assembly with [BUSCO](https://github.com/WenchaoLin/BUSCO-Mod)
-```
-busco -m transcriptome -c 15 -l eukaryota_odb10 --update-data -o busco_euk -i trinity_v2.14.Trinity.fasta
-busco -m transcriptome -c 15 -l bacteria_odb10 --update-data -o busco_euk -i trinity_v2.14.Trinity.fasta
-busco -m transcriptome -c 15 -l archaea_odb10 --update-data -o busco_euk -i trinity_v2.14.Trinity.fasta
-```
-## [Funannotate](https://github.com/nextgenusfs/funannotate/tree/master)
-### RNA-seq mediated training of Agustus/GeneMArk
-```
-funannotate train -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out --cpus 40 \
--l Rna.FastP_R1.fastq.gz \
--r Rna.FastP_R2.fastq.gz \
---trinity trinity_v2.14_${i}_fastP.Trinity.fasta \
---no_trimmomatic --no_normalize_reads --species "Saccharomycomorpha"
-```
-### GENEMARK
-```
-gmes_linux_64/gmes_petap.pl --ES --max_intron 3000 --soft_mask 2000 --cores 40 --sequence Spa255.polished.alt1.softmasked.fasta
-```
-### Gene prediction
-```
-/NVME/Software/funannotate-docker predict -i Spa255.polished.alt1.softmasked.fasta -o funannotate_out \
--s "Saccharomycomorpha" --cpus 40 --organism other --busco_db protists --optimize_augustus --weights glimmerhmm:0 snap:0 --genemark_gtf genemark.gtf
-```
+
 ## [BRAKER](https://github.com/Gaius-Augustus/BRAKER)
 ### 
 ```
-/home/hoeztopr/miniconda3/envs/funannotate_env/bin/hisat2 -x Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta -p 40 -1 Spa255.rna.FastP_R1.fastq.gz -2 Spa255.rna.FastP_R2.fastq.gz | samtools view -b -@ 30 | samtools sort -@ 30 -o mapping_hisat2.Spa255.hifiasm.v25.ragtag.pecat.softmasked.bam
+hisat2 -x final.softmasked.fasta -p 40 -1 RNA.trimmed_end1.fastq.gz -2 RNA.trimmed_end2.fastq.gz | samtools view -b -@ 30 | samtools sort -@ 30 -o final.bam
 ```
 ### use braker with GENEMARK, PROTHINT, AUGUSTUS ...
 ```
-raker.pl --species Saccharomycomorpha_strain255 --genome Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta --gff3 --UTR off --bam  mapping_hisat2.Spa255.hifiasm.v25.ragtag.pecat.softmasked.bam --threads 40 --useexisting --PROTHINT_PATH /home/hoeztopr/Data/hoeztopr/gmes_linux_64/ProtHint/bin/
+braker.pl --species Saccharomycomorpha_strain255 --genome final.softmasked.fasta --gff3 --UTR off --bam  final.bam --threads 40 --useexisting --PROTHINT_PATH /gmes_linux_64/ProtHint/bin/
 ```
 ### keep longest isoform
 ```
-agat_sp_keep_longest_isoform.pl --gff ${PWD}/braker.gff3 -o ${PWD}/Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.gff3
+agat_sp_keep_longest_isoform.pl --gff ${PWD}/braker.gff3 -o ${PWD}/final.braker.dedup.gff3
 ```
 ### generate protein fasta
 ```
-funannotate util gff2prot -g Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.gff3 -f ../Spa255.hifiasm.v25.ragtag.pecat.softmasked.fasta > Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta
+funannotate util gff2prot -g final.dedup.gff3 -f ../final.softmasked.fasta > final.dedup.protein.fasta
 ```
 ### eggNOG mapper version 2.1.4 
-#### db -rwxrwxr-x 1 shangao shangao 8,7G Mär  2  2021 /RAID/Data/databases/eggnog-mapper-data/eggnog_proteins.dmnd
-
-### eggNOG mapper - [web application](http://eggnog-mapper.embl.de/)) -- needs to be updated
 ```
-emapper.py --cpu 20 --mp_start_method forkserver --data_dir /dev/shm/ -o out --output_dir /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq --temp_dir /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq --override -m diamond --dmnd_ignore_warnings -i /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/queries.fasta --evalue 0.001 --score 60 --pident 40 --query_cover 20 --subject_cover 20 --itype proteins --tax_scope auto --target_orthologs all --go_evidence non-electronic --pfam_realign none --report_orthologs --decorate_gff yes --excel > /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/emapper.out 2> /emapper_web_jobs/emapper_jobs/user_data/MM_pu2cxinq/emapper.err
+eggnog-mapper-2.1.4/emapper.py --cpu 30  --data_dir /RAID/Data/databases/eggnog-mapper-data \
+ --score 0.01   --seed_ortholog_evalue 0.01 \
+ -i final.dedup.protein.fasta -o EggNOG.001
 ```
 ### Interproscan - using [Galaxy](https://usegalaxy.eu/jobs/)
 
 ### Assign functional annotation to gene predictions
 ```
 funannotate annotate -i funannotate_out --cpus 60 --eggnog out.emapper.annotations --iprscan InterProScan-5.54-87.0.xml --busco_db funannotate_db/protists --force
+```
+### Add InterproScan annotations to GFF3
+```
+agat_sp_manage_functional_annotation.pl \
+  --gff braker.dedup.gff3 \
+  --i InterProScan-5.59-91.0.xml \
+  -o final.gff3
 ```
