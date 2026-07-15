@@ -1,4 +1,3 @@
-        #this is the previous script also saved as filtering blabla.py
 import pandas as pd
 
 # Load data
