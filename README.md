@@ -10,7 +10,7 @@ One blob yields 600 ng of DNA (30 ng/µl in 20 µl). [protocol](https://www.prot
 
 ### Genome properties
 Estimated genome size 30 MB haploid
-Diploid
+predicted diploid
 heterozygous
 
 ### Sequencing
