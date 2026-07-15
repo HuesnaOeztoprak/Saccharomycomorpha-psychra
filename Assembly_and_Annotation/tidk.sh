@@ -1,3 +1,5 @@
+#https://github.com/tolkit/telomeric-identifier
+
 #Usage: tidk explore [OPTIONS] <FASTA>
 tidk explore --minimum 5 --maximum 12 assembly.fasta > explore.tsv
                         #likely telomeric region :AACCCT 
