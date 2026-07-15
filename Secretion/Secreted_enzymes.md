@@ -1,12 +1,12 @@
 # Identiyfiny Functional motifs in secreted enzymes
 
-### Adjust fasta file format (no terminal *)
+#### if needed: adjust fasta file format (no terminal *)
 ```
 sed -E 's/^>([^ ]+).*/>\1/' final.braker.dedup.fasta > fixed.fasta
 ```
 
-### [Phobius](https://phobius.sbc.su.se/) - A combined transmembrane topology and signal peptide predictor
-#### Count secreted and transmembrane domains from Phobius output:
+### Run [Phobius](https://phobius.sbc.su.se/) - A combined transmembrane topology and signal peptide predictor
+#### Run Phobius on website and then count secreted and transmembrane domains from Phobius output:
 ```
 python 01_count_SP+TM_domains.py
 ```
@@ -56,12 +56,12 @@ print(f"Membrane-bound proteins: {df['Membrane_Bound'].sum()}")
 print(f"Cytoplasmic proteins: {df['Cytoplasmic'].sum()}")
 ```
 
-### [SecretomeP-2.0](https://services.healthtech.dtu.dk/services/SecretomeP-2.0/) - ab initio predictions of non-classical i.e. not signal peptide triggered protein secretion
+### Run [SecretomeP-2.0](https://services.healthtech.dtu.dk/services/SecretomeP-2.0/) - ab initio predictions of non-classical i.e. not signal peptide triggered protein secretion
 ##### As max file size is limited to 100 seq
 ```sh
 seqkit split -f secreted_proteins.fasta -s 100 -O fasta_chunks/
 ```
-#### Run on website
+#### Run on website and then:
 ##### Merge single outputs into one file
 ```sh
 awk 'FNR==1 && NR!=1 {next} /^-+/ {next} 1' secretomeP2_results/secreted_proteins.part00*.txt > secretomeP2_results/SecretomeP_AllResults.tsv
@@ -74,7 +74,8 @@ awk 'NR==1 || $4 >= 0.6' SecretomeP_AllResults.tsv > SecretomeP_Filtered.tsv
 ```sh
 cut -f5 SecretomeP_Filtered.tsv | tail -n +2 > Secreted_Protein_IDs.txt
 ```
-### [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/) - Prediction of Signal Peptides and their cleavage sites in all domains of life
+
+### Run [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/) - Prediction of Signal Peptides and their cleavage sites in all domains of life
 ##### As max file size is limited to 1000 proteins
 ```sh
 seqkit split -s 1000 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta -O split_fastas
