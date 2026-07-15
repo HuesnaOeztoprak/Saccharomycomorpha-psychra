@@ -1,4 +1,4 @@
-## Putattive transporter protein identification workflow
+## Putative transporter protein identification workflow
 
 ### Homology searches against Transporter Classification Database (TCDB; Saier et al., 2021)
 ```sh
