@@ -1,5 +1,5 @@
-# CAZyme annotation
-## Identify CAZymes
+## CAZyme annotation
+
 ### [dbcan2](https://github.com/linnabrown/run_dbcan/blob/master/README.md) - annotation tool for automated CAZyme annotation
 #### Run dbcan2 with Hmmer and DIAMOND
 ```sh
