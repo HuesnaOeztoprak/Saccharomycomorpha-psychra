@@ -1,4 +1,4 @@
-# Identifying Functional motifs in secreted enzymes
+## Workflow to identify gunctional motifs in secreted enzymes
 
 #### if needed: adjust fasta file format (no terminal *)
 ```
