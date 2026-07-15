@@ -9,13 +9,13 @@ One agar plate yields 2900 ng of DNA (59 ng/µl in 50 µl).
 One blob yields 600 ng of DNA (30 ng/µl in 20 µl). [protocol](https://www.protocols.io/view/modified-salting-out-method-for-high-molecular-wei-c2igycbw.html)
 
 ### Genome properties
-Estimated genome size 100 MB
-Unknown ploidy
+Estimated genome size 30 MB haploid
+Diploid
 heterozygous
 
-### Sequencing plan
-PacBio HiFi reads: low input protocol & Arima Hi-C 
-50X coverage for long reads
+### Sequencing
+PacBio HiFi reads
+205X coverage for long reads
 > [!NOTE]
 > - Delivered are samples 226759,226762, from run 240725_A00620_0407_AHVJ5MDMXY_Juli12: Sample-ID 1129-1
 > - m84115_240815_133423_s3.hifi_reads.bc2097.bam ; 14,22 Gb ; 1605721 CCS_reads
