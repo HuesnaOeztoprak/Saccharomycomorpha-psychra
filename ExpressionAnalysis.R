@@ -1,6 +1,5 @@
 # =============================================================================
 # Transcriptome-Wide Expression Analysis
-# Arctic Osmotrophic Glissomonad
 #
 # Sections:
 #   0.  Load libraries
@@ -29,36 +28,8 @@
 #  23.  Expression breadth stats
 #  24.  Combined main figure (patchwork)
 #
-# NOTES ON NUMERICAL DISCREPANCIES (important for methods):
-#
-#   Genome annotation vs transcriptome:
-#   - Genome has 18,680 predicted genes; Salmon quantifies 17,066 unique genes.
-#   - ~1,614 genes are in the genome but absent from quant.sf. These likely
-#     include scaffolds not included in the Salmon index, or genes with zero
-#     mappable reads. BUSCO scores (euk 82.7%, alv 95.9%) confirm annotation
-#     quality is not the issue.
-#
-#   CAZyme numbers:
-#   - Genome: 109 high-confidence CAZymes (64 secreted, 45 non-secreted).
-#   - Script finds: 97 CAZymes in quant.sf (60 secreted, 37 non-secreted).
-#   - Missing 12: either absent from Salmon index or transcript ID mismatch
-#     between the protein file used for dbCAN2 and the quant.sf transcript IDs.
-#   - Use genome annotation numbers (109/64) for the annotation figure (Panel A).
-#   - Use quant.sf numbers (97/60) for expression analyses only.
-#
-#   Secreted numbers:
-#   - 1,015 predicted; 970 found in quant.sf (45 absent, 4.4%).
-#   - 908 appear in the 'Secreted' category (not 970) because:
-#     (a) 60 are in 'Secreted CAZyme' category instead
-#     (b) 2 are overwritten to 'Transporter' by the hierarchy
-#   - The 45 absent from quant.sf are legitimately unquantifiable (index issue,
-#     not annotation error). Expected and acceptable.
-# =============================================================================
-
-
 # =============================================================================
 # 0. LOAD LIBRARIES
-# =============================================================================
 
 library(ggplot2)      # plotting engine
 library(dplyr)        # data manipulation
@@ -66,14 +37,11 @@ library(rstatix)      # Wilcoxon tests + effect sizes
 library(ggpubr)       # stat_compare_means for significance brackets
 library(patchwork)    # multi-panel figures
 library(pheatmap)     # heatmaps
-
-# install.packages("ggvenn") — run once if not installed
 library(ggvenn)       # Venn diagrams
-
 
 # =============================================================================
 # 1. LOAD DATA
-# =============================================================================
+
 setwd("~/Desktop/Postdoc/Saccaromycomorpha/expression")
 quant    <- read.table("quant.sf",                      header = TRUE, sep = "\t")
 secreted <- read.table("final_secreted_Protein_IDs.txt", header = TRUE, stringsAsFactors = FALSE)
@@ -85,18 +53,15 @@ colnames(cazy)[1]     <- "Name"
 colnames(trans)[1]    <- "Name"
 
 # Genome-level annotation counts (ground truth from annotation pipeline).
-# These are used in Panel A (annotation overview). Do NOT replace with
-# expression-derived numbers for this figure.
+# These are used in Panel A (annotation overview). 
 GENOME_total_genes        <- 18680
 GENOME_secreted           <- 1015
 GENOME_cazymes            <- 109
 GENOME_secreted_cazymes   <- 64
 GENOME_transporters       <- 724
 
-
 # =============================================================================
 # 2. CLEAN IDs
-# =============================================================================
 
 quant$Name    <- trimws(quant$Name)
 secreted$Name <- trimws(secreted$Name)
@@ -117,7 +82,6 @@ cat(sprintf("Secreted predicted: %d | In transcriptome: %d | Absent: %d (%.1f%%)
 
 # =============================================================================
 # 3. LABEL FUNCTIONAL CATEGORIES (transcript level)
-# =============================================================================
 
 quant$Secreted    <- quant$Gene %in% secreted$Gene
 quant$CAZyme      <- quant$Name %in% cazy$Name
@@ -139,8 +103,8 @@ cat("\n")
 
 # =============================================================================
 # 4. COLLAPSE TO GENE LEVEL — MAX-TPM ISOFORM
-# =============================================================================
-# 712 genes have >1 isoform (792 extra transcripts). Retain max-TPM isoform
+
+# Note: 712 genes have >1 isoform (792 extra transcripts). Retain max-TPM isoform
 # per gene to avoid double-counting in statistical comparisons.
 
 quant_gene <- quant %>%
@@ -155,7 +119,7 @@ cat("Total unique genes:", nrow(quant_gene), "\n\n")
 
 # =============================================================================
 # 5. LOG-TRANSFORM
-# =============================================================================
+
 # log10(TPM+1): +1 pseudocount keeps zero-expressed genes finite.
 # Use this column directly on plot axes — do NOT use scale_y_log10()
 # which silently drops TPM=0 rows and generates warnings.
@@ -165,7 +129,6 @@ quant_gene$logTPM <- log10(quant_gene$TPM + 1)
 
 # =============================================================================
 # 6. SUMMARY STATISTICS
-# =============================================================================
 
 summary_stats <- quant_gene %>%
   group_by(Category) %>%
@@ -188,8 +151,6 @@ cat("\n")
 
 # =============================================================================
 # 7. PROPORTION OF TOTAL TRANSCRIPTIONAL OUTPUT
-# =============================================================================
-# "Despite comprising X% of genes, secreted proteins account for Y% of output"
 
 total_TPM <- sum(quant_gene$TPM)
 
@@ -212,7 +173,7 @@ cat("\n")
 
 # =============================================================================
 # 8. PAIRWISE WILCOXON + EFFECT SIZES
-# =============================================================================
+
 # Non-parametric test chosen for: right-skewed TPM, zero-inflation (~18%),
 # unequal variances. BH correction for multiple comparisons.
 # Effect size r (rank-biserial): |r|~0.1 small, 0.3 medium, 0.5 large.
@@ -239,7 +200,7 @@ cat("\n")
 
 # =============================================================================
 # 9. FISHER ENRICHMENT — TOP-10% EXPRESSED GENES
-# =============================================================================
+
 # Gene-level 90th percentile TPM threshold, propagated to all enrichment tests
 # and to the CAZyme family bar chart.
 
@@ -258,7 +219,6 @@ cat("\n")
 
 # =============================================================================
 # 10. COLOUR PALETTE AND FACTOR ORDER
-# =============================================================================
 
 category_colors <- c(
   "background"      = "#6F6F6F",
@@ -274,17 +234,8 @@ quant_gene$Category <- factor(quant_gene$Category, levels = category_order)
 
 # =============================================================================
 # 11. PANEL A — ANNOTATION-BASED OVERVIEW (Venn + bar)
-# =============================================================================
+
 # This panel uses GENOME ANNOTATION COUNTS (not expression data).
-# Rationale: the annotation Venn shows the full predicted proteome composition,
-# independent of whether genes are expressed under these specific conditions.
-# Expression-based Venn would show only the 97/109 CAZymes present in quant.sf,
-# which is an artefact of transcriptome coverage, not biology.
-#
-# Layout: two-circle Venn (Secreted x CAZyme) with transporter count
-# displayed separately as a labelled bar or annotation, all within one panel.
-#
-# Using ggvenn with annotation numbers as dummy gene ID sets.
 
 # Build sets from genome annotation counts using integer vectors as proxies
 # (ggvenn works on named lists of sets — we simulate from known counts)
@@ -355,8 +306,8 @@ ggsave("PanelA_annotation_overview.pdf", pA_overview, width = 11, height = 5)
 
 # =============================================================================
 # 12. PANEL B — GLOBAL EXPRESSION VIOLIN + BOXPLOT
-# =============================================================================
-# Uses quant.sf numbers (97 CAZymes, 970 secreted in transcriptome).
+
+# Uses quant.sf numbers
 # Significance brackets: each category vs. background only.
 
 comparisons_vs_bg <- list(
@@ -423,8 +374,8 @@ write.table(family_expression, "CAZyme_family_expression.tsv",
 
 # =============================================================================
 # 14. PANEL C — TOP CAZYME FAMILIES (expression)
-# =============================================================================
-# Show all families (47 total) or top 30 if too many for the figure.
+
+# Show all families (47 total)
 # Colour: purple = has at least one gene in top-10% expressed (gene-level threshold)
 
 n_families_show <- min(nrow(family_expression), 47)
@@ -449,11 +400,9 @@ ggsave("PanelC_CAZyme_families_expression.pdf", pC, width = 7, height = 8)
 
 # =============================================================================
 # 15. PFAM-RESCUE OF UNKNOWN TC FAMILIES
-# =============================================================================
+
 # Curated Pfam → TC subclass lookup (TCDB.org; Saier et al. 2021).
-# ~28% of eukaryotic transporters remain unresolvable after PFAM rescue —
-# this is expected in divergent lineages and not an annotation quality issue.
-# See methods for explanation of the 207 remaining unknowns.
+# ~28% of eukaryotic transporters remain unresolvable after PFAM rescue - this is expected in divergent lineages and not an annotation quality issue.
 
 # Curated Pfam → TC subclass lookup
 pfam_to_tc <- c(
@@ -511,7 +460,7 @@ cat("\n")
 
 # =============================================================================
 # 16. TC CLASS HARMONISATION
-# =============================================================================
+
 # Goal: consistent subclass level throughout (X.A.XX format where known).
 # Extract TC levels
 get_tc_levels <- function(tc) {
@@ -547,14 +496,14 @@ cat("\n")
 
 # =============================================================================
 # 17. TRANSPORTER FAMILY ANALYSIS
-# =============================================================================
+
 expr_trans <- quant_gene %>%
   filter(Name %in% trans$Name) %>%
   left_join(trans, by = "Name")
 
 # =========================
 # MAIN TABLE (subclass level)
-# =========================
+
 trans_subclass <- expr_trans %>%
   group_by(TC_subclass) %>%
   summarise(
@@ -569,24 +518,8 @@ trans_subclass <- expr_trans %>%
 write.table(trans_subclass, "Transporter_subclass_expression.tsv",
             sep="\t", quote=FALSE, row.names=FALSE)
 
-# =========================
-# OPTIONAL: fine-grained families (splits MFS!)
-# =========================
-trans_family_fine <- expr_trans %>%
-  group_by(TC_family_lv) %>%
-  summarise(
-    n_genes   = n(),
-    total_TPM = sum(TPM),
-    mean_TPM  = mean(TPM)
-  ) %>%
-  arrange(desc(total_TPM))
 
-write.table(trans_family_fine, "Transporter_family_fine_expression.tsv",
-            sep="\t", quote=FALSE, row.names=FALSE)
-
-# =========================
 # TOP 20 subclass for plotting
-# =========================
 top20_trans <- trans_subclass %>% slice(1:20)
 
 # Stats: transporter vs background
@@ -600,9 +533,9 @@ cat(sprintf("Transporter vs background: W=%.0f, p=%.2e, r=%.3f (%s)\n\n",
     effsize_trans$magnitude))
 # =============================================================================
 # 18. PANEL D — TOP TRANSPORTER FAMILIES (expression)
-# =============================================================================
+
 # Labels are harmonised TC subclass names (no PFAM-rescue suffix in the figure).
-# PFAM rescue is mentioned in methods text only.
+
 pD <- ggplot(top20_trans,
              aes(x = reorder(TC_subclass, total_TPM), y = total_TPM)) +
   geom_col(fill = "#5FA8A8") +
@@ -625,7 +558,6 @@ ggplot(trans_subclass,
 #panel D  
 # =============================================================================
 # PANEL D — Transporter subclasses (bubble plot)
-# =============================================================================
 
 # ---------------------------
 # Ordering (TC hierarchy)
@@ -646,7 +578,6 @@ trans_subclass <- trans_subclass %>%
 
 # ---------------------------
 # Plot
-# ---------------------------
 D <- ggplot(trans_subclass,
        aes(x = TC_subclass,
            y = mean_TPM,
@@ -676,10 +607,7 @@ D <- ggplot(trans_subclass,
 
 # ---------------------------
 # Save
-# ---------------------------
 ggsave("PanelD_Transporter_subclasses_BLOB.pdf", D, width = 7, height = 6)
-
-
 
 
 ## log transformerd version
@@ -716,7 +644,6 @@ ggsave("PanelD_Transporter_subclasses_BLOB.pdf", D, width = 7, height = 6)
   
 # =============================================================================
 # 19. SUPPLEMENTARY FIGURE S1 — PER-FAMILY CAZYME VIOLIN
-# =============================================================================
 
 pSup1 <- ggplot(expr_cazy,
                 aes(x = reorder(family, TPM, FUN = median), y = logTPM, fill = family)) +
@@ -733,7 +660,7 @@ ggsave("SupFigS1_CAZyme_family_violins.pdf", pSup1, width = 8, height = 12)
 
 # =============================================================================
 # 20. SUPPLEMENTARY FIGURE S2 — EXPRESSION BREADTH STACKED BAR
-# =============================================================================
+
 # Quantifies the bimodal pattern in secreted proteins: many lowly/not expressed,
 # a subset highly expressed (the osmotrophy "workhorses").
 # Threshold for 'high' = gene-level 90th percentile (consistent throughout).
@@ -771,7 +698,6 @@ ggsave("SupFigS2_expression_breadth.pdf", pSup2, width = 7, height = 5)
 
 # =============================================================================
 # 21. SUPPLEMENTARY TABLES
-# =============================================================================
 
 # S1: Top 20 expressed CAZyme genes
 write.table(
@@ -806,7 +732,7 @@ cat("\n")
 
 # =============================================================================
 # 22. LENGTH-BIAS CHECK
-# =============================================================================
+
 # TPM corrects for length — Spearman rho should be negligible (<0.1).
 
 len_cor <- cor.test(quant_gene$Length, quant_gene$logTPM, method = "spearman")
@@ -818,7 +744,7 @@ cat(ifelse(abs(len_cor$estimate) < 0.1,
 
 # =============================================================================
 # 23. EXPRESSION BREADTH STATS (for results text)
-# =============================================================================
+
 
 sec_genes   <- quant_gene %>% filter(Secreted)
 n_sec_total <- nrow(sec_genes)
@@ -837,7 +763,7 @@ cat(sprintf("  Highly expressed (top 10%%):   %d (%.1f%%)\n\n",
 
 # =============================================================================
 # 24. COMBINED MAIN FIGURE
-# =============================================================================
+
 # Panel A: Annotation overview (Venn + gene count bar)
 # Panel B: Expression violin/boxplot
 # Panel C: CAZyme family expression bar
@@ -855,8 +781,8 @@ ggsave("Figure1_combined.png", main_figure, width = 12, height = 20, dpi = 300)
 
 
 # =============================================================================
-# FILE MANIFEST
-# =============================================================================
+# FILE MANIFEST, uff finally done :)
+
 cat("\n=== OUTPUT FILES ===\n")
 cat("Main figure:    Figure1_combined.pdf/png\n")
 cat("Panels:         PanelA_annotation_overview.pdf\n")
