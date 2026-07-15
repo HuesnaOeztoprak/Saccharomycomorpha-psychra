@@ -1,14 +1,14 @@
 ### Overview of the workflow to investigate the metabolism of *S.* *Psychra*; the following scripts were utilized
 
 
-#### To assess the metabolic pathway completeness:
+#### To assess the metabolic pathway completeness by using EggNOG-mapper (https://github.com/eggnogdb/eggnog-mapper) and KEGGaNOG script (https://github.com/iliapopov17/KEGGaNOG):
 ```
 Metabolic_pathway_completeness.md
 ```
 
 and
 
-#### To access metabolic pathway presence and expression:
+#### To access metabolic pathway presence and expression via combining Salmon expression data (https://github.com/COMBINE-lab/salmon; TPM) and KofamKOALA (https://www.genome.jp/tools/kofamkoala/):
 
 ```
 Metabolic_pathway_presence_and_expression.md
