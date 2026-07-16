@@ -2,7 +2,7 @@
 
 blastp \
   -db tcdb_blast \
-  -query Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta \
+  -query protein.fasta \
   -out tcdb_hits.tsv \
   -evalue 1e-20 \
   -qcov_hsp_perc 50 \
