@@ -16,5 +16,5 @@ combined_conf = pd.concat([high_conf, hmmer_only]).drop_duplicates()
 high_conf.to_csv("CAZymes_high_confidence.tsv", sep="\t", index=False)
 combined_conf.to_csv("CAZymes_combined_confidence.tsv", sep="\t", index=False)
 
-print(f"✅ High-confidence: {len(high_conf)} genes")
-print(f"✅ Combined (includes HMMER-only): {len(combined_conf)} genes")
+print(f" High-confidence: {len(high_conf)} genes")
+print(f" Combined (includes HMMER-only): {len(combined_conf)} genes")
