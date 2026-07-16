@@ -16,7 +16,7 @@ tpm value (expressed is equal/ greater than 1)
 
 
 
-### In R: 
+### ✳️ In R: 
 
 ```
 #Since KofamKOALA only allows input sequences up to 10000 entries, first our data needs to be split and afterwards manually combined
