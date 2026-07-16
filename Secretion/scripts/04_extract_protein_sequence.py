@@ -1,9 +1,9 @@
 from Bio import SeqIO
 
 # Input files
-fasta_file = "Spa255_braker.dedup.fixed.fasta"
-id_file = "final_secreted_Protein_IDs.txt"
-output_fasta = "Spa255.braker.dedup.secreted_proteins.fasta"
+fasta_file = "protein.fasta"
+id_file = "secreted_Protein_IDs.txt"
+output_fasta = "secreted_proteins.fasta"
 
 # Read secreted protein IDs
 with open(id_file) as f:
