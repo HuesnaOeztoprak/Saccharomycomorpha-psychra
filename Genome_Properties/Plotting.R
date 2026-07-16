@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript
+#!/usr/bin/env Rscript ✳️
 
 # all 78 scaffolds, split into three rows by
 # telomere-based classification. Genes/Exons/TEs/Cov/GC content
