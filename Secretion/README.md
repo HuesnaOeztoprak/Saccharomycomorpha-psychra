@@ -15,8 +15,8 @@ python 01_count_SP+TM_domains.py ✳️
 import pandas as pd
 
 # Input & Output Files
-phobius_file = "phobius_short_output_Spa255.txt"
-output_file = "Phobius_summary_Spa255.tsv"
+phobius_file = "phobius_short_output.txt"
+output_file = "Phobius_summary.tsv"
 
 # Read Phobius short output
 with open(phobius_file, "r") as f:
@@ -78,7 +78,7 @@ cut -f5 SecretomeP_Filtered.tsv | tail -n +2 > Secreted_Protein_IDs.txt
 ### Run [SignalP 6.0](https://services.healthtech.dtu.dk/services/SignalP-6.0/) - Prediction of Signal Peptides and their cleavage sites in all domains of life
 ##### As max file size is limited to 1000 proteins
 ```sh
-seqkit split -s 1000 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta -O split_fastas
+seqkit split -s 1000 protein.fasta -O split_fastas
 ```
 #### Run on website
 ##### Merge single outputs into one file
