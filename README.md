@@ -32,3 +32,8 @@ Sequenced at CCG: mRNA Seq (Poly A + selection), Paired-End 2x100 bp
 
 
 Reads are available under BioProject: PRJNA1491632
+
+
+#### AI Assistance Disclosure
+
+Select scripts in this repository were refined with AI assistance (ChatGPT, OpenAI; https://chatgpt.com; accessed 2025–2026) for iterative code development. Affected scripts are marked with the tag `icon` in their file header. All analytical decisions, parameter choices, and result verification were carried out by the authors.
