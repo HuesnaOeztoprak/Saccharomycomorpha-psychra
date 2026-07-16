@@ -31,7 +31,7 @@ Sequenced at CCG: mRNA Seq (Poly A + selection), Paired-End 2x100 bp
 > - Spa 255: A006200407_226759_S33_L000_R2_001.fastq.gz 
 
 
-Reads are available under BioProject: PRJNA1491632
+Reads are available under NCBI BioProject: PRJNA1491632
 
 
 #### AI Assistance Disclosure
