@@ -24,7 +24,7 @@ tpm value (expressed is equal/ greater than 1)
 
 #setwd()
 
-#prots <- read.fasta("XXX")
+#prots <- read.fasta("")
 #length(prots)
 
 
