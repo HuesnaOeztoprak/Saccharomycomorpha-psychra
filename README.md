@@ -1,5 +1,6 @@
 # _Saccharomycomorpha-psychra_
-This project aims to assemble the genome of [_Saccharomycomorpha psychra_](https://pubmed.ncbi.nlm.nih.gov/33448091/) a free-living, heterotrophic protist. 🦠 
+This project aims to assemble the genome of [_Saccharomycomorpha psychra_](https://pubmed.ncbi.nlm.nih.gov/33448091/) a free-living, heterotrophic protist and analzye its secretome. 🦠 
+
 
 ### Cultering
 🧫 On organic-rich Potato Dextrose Agar medium (axenic) at 15°C. It feeds osmotrophically. 
@@ -28,8 +29,6 @@ Sequenced at CCG: mRNA Seq (Poly A + selection), Paired-End 2x100 bp
 > Raw reads ID: NGS_JB08_husna_A006200407 (2267-59,Spa255 & 2267-62,Spa232)
 > - Spa 255: A006200407_226759_S33_L000_R1_001.fastq.gz
 > - Spa 255: A006200407_226759_S33_L000_R2_001.fastq.gz 
-> - Spa 232: A006200407_226762_S34_L000_R1_001.fastq.gz 
-> - Spa 232: A006200407_226762_S34_L000_R2_001.fastq.gz
 
 
 Reads are available under BioProject: PRJNA1491632
