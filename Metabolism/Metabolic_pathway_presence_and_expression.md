@@ -24,7 +24,7 @@ tpm value (expressed is equal/ greater than 1)
 
 #setwd()
 
-#prots <- read.fasta("")
+#prots <- read.fasta("assembly.fasta")
 #length(prots)
 
 
@@ -56,7 +56,7 @@ library(readr)
 
 ##read salmon data and KofamKoala output to combine
 quant <- read_tsv("quant.sf", col_types = cols())
-kofam_raw <- read_lines("XXX")
+kofam_raw <- read_lines("assemblyKofamKOALA_result_ko_combined.txt")
 
 # KofamKOALA parsing
 kofam_list <- list()
@@ -100,16 +100,5 @@ for(ko in expr_kos) {
 }
 
 #save
-writeLines(ipath_lines, "ipath3_Spa255_KEGGmapper_KofamKOALA.txt")
+writeLines(ipath_lines, "ipath3_KEGGmapper.txt")
 
-
-
-#to compare: a list of genes, KOs and tpm
-
-gene_table <- quant %>%
-  select(Name, TPM) %>%
-  left_join(ghost, by = "Name") %>%
-  select(Name, KO, TPM)
-
-write_tsv(gene_table, "KO_TPM_KofamKOALA.tsv")
-```
