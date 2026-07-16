@@ -1,3 +1,4 @@
+#✳️
 !/usr/bin/env python3
 """
 telomere detection with gap-tolerant merging and
