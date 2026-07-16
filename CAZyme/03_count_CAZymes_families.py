@@ -28,5 +28,5 @@ family_counts.to_csv(
     header=False
 )
 
-print("✅ New CAZy_Family_Counts.txt generated successfully!")
+print("New CAZy_Family_Counts.txt generated successfully!")
 print(family_counts.head())
