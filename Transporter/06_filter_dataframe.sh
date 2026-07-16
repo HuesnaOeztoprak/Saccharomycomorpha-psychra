@@ -1,3 +1,4 @@
+#✳️
 !/usr/bin/env bash
 # Filter and functionally annotate the new transporter_master.tsv
 # Columns in master table: 1:gene_id  2:best_TCDB_id  3:blast_UniProt  4:blast_evalue  5:blast_pident 6:eggnog_TC  7:eggnog_PFAM  8:hmmer_PFAM  9:nTM  10:n_evidence  11:confidence
