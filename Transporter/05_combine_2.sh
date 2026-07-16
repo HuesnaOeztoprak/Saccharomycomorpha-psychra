@@ -1,3 +1,4 @@
+✳️
 usr/bin/env bash
 # patch_and_rerun.sh
 # 1. Adds missing MFS Pfam names to shortname whitelist
