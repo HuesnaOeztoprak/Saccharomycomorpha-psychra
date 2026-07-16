@@ -1,5 +1,5 @@
 # =============================================================================
-# Transcriptome-Wide Expression Analysis
+# Transcriptome-Wide Expression Analysis ✳️
 #
 # Sections:
 #   0.  Load libraries
