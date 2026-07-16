@@ -1,3 +1,7 @@
+gffread braker.gtf \
+  -g assembly.fasta \
+  -w transcripts.fa
+
 salmon index -t transcript.fa -i salmon_index
 
 salmon quant \
