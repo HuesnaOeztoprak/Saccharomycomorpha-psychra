@@ -28,6 +28,6 @@ Tarailo‐Graovac & Chen, 2009) with parameters
 #### Prior to downstream analysis,the output files were processed and filtered with the script “RM_Trips” in R (version 4.4.3; R Core Team, 2025) following the FasTE workflow
 
 
-#### Visualization of Kimura Substitution Levels: 
+#### Visualization of Kimura Substitution Levels (Figure S6):
 Workflow as described in Öztoprak et. al 2025 (https://www.science.org/doi/10.1126/sciadv.adn0817) was performed.
 
