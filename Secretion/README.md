@@ -8,7 +8,7 @@ sed -E 's/^>([^ ]+).*/>\1/' final.braker.dedup.fasta > fixed.fasta
 ### Run [Phobius](https://phobius.sbc.su.se/) - A combined transmembrane topology and signal peptide predictor
 #### Run Phobius on website and then count secreted and transmembrane domains from Phobius output:
 ```
-python 01_count_SP+TM_domains.py
+python 01_count_SP+TM_domains.py ✳️
 ```
 
 ```
