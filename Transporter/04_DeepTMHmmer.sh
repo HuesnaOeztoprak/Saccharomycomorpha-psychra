@@ -1,22 +1,22 @@
 module load seqkit   # if needed
 
 seqkit split -p 12 \
-  /home/hoeztopr/Scratch/hoeztopr/spa/assembly/final/Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.fasta \
+  protein.fasta \
   -O split_fasta
 
 ls split_fasta/
-#-rw-rw-r-- 1 hoeztopr hoeztopr 896K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_001.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 853K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_002.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 875K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_003.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 912K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_004.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 850K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_005.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 848K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_006.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 928K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_007.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 982K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_008.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 973K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_009.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 852K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_010.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 869K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_011.fasta
-#-rw-rw-r-- 1 hoeztopr hoeztopr 853K Feb 19 10:22 Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_012.fasta
+protein.part_001.fasta
+protein.part_002.fasta
+protein.part_003.fasta
+protein.part_004.fasta
+protein.part_005.fasta
+protein.part_006.fasta
+protein.part_007.fasta
+protein.part_008.fasta
+protein.part_009.fasta
+protein.part_010.fasta
+protein.part_011.fasta
+protein.part_012.fasta
 
 
 ####
@@ -30,7 +30,7 @@ export NUMEXPR_NUM_THREADS=4
 export TORCH_NUM_THREADS=4
         #run deeptmhmm on individual files - requires all available cores, very intensive
 
-bash run_deeptmhmm_2.sh split_fasta/Spa255.hifiasm.v25.ragtag.pecat.braker.dedup.part_XX.fasta
+bash run_deeptmhmm_2.sh split_fasta/protein.part_XX.fasta
 
 
 #combine individual output files
