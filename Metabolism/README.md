@@ -18,7 +18,7 @@ Metabolic_pathway_presence_and_expression.md
 
 This provides the file:
 ```
-ipath3_KEGGmapper_KofamKOALA.txt
+ipath3_KEGGmapper.txt
 ```
 This can be implemented into https://pathways.embl.de/ipath3.cgi?map=metabolic and then “select whole modules”. This provides an interactive map to click on KEGG modules and further investigate the metabolic map and its properties.
 
