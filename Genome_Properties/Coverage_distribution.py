@@ -1,3 +1,4 @@
+#✳️
 #!/usr/bin/env python3
 import pandas as pd
 
@@ -15,4 +16,3 @@ for (chrom, win), grp in cov.groupby(["chr","win"], sort=False):
 
 out = pd.DataFrame(rows, columns=["chr","start","end","value"])
 out.to_csv("coverage_100kb.txt", sep="\t", header=False, index=False, float_format="%.6f")
-
