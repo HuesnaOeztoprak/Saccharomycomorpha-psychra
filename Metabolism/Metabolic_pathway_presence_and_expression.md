@@ -5,13 +5,9 @@
 
 #### Salmon is a tool to quantificate transcripts from RNA data in transcripts per million (tpm)
 
-Script and input data as shwon in XXX
+Script and input data as shown in XXX
 ```
-salmon quant \
--t /NVME/Scratch/hoeztopr/spa/Carbohydrate_active_enzymes/dbcan2_Spa255/filtering/expression/Spa255_transcripts.fa \
--l A \
--a /home/hoeztopr/Scratch/hoeztopr/spa/assembly/final/mapping_hisat2.Spa255.hifiasm.v25.ragtag.pecat.softmasked.bam \
--o /RAID/Data/bonkis/Spa255_genome/10_metabolism/salmon/salmon_quant
+Assembly_and_Annotation/salmon.sh
 ```
 
 
