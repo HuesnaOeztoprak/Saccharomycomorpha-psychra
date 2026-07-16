@@ -1,6 +1,6 @@
 import pandas as pd
 
-### 1️⃣ Extract Protein IDs from FASTA ###
+### Extract Protein IDs from FASTA ###
 fasta_file = "Spa255_braker.dedup.fixed.fasta"
 protein_ids = []
 
@@ -10,9 +10,9 @@ with open(fasta_file, "r") as f:
             protein_id = line.split()[0][1:]  # Remove ">" and take the first part
             protein_ids.append(protein_id)
 
-print(f"✅ Extracted {len(protein_ids)} protein IDs from {fasta_file}")
+print(f" Extracted {len(protein_ids)} protein IDs from {fasta_file}")
 
-### 2️⃣ Load Prediction Data ###
+### Load Prediction Data ###
 
 # SignalP results
 signalp_file = "SignalP_AllResults.fixed.csv"
@@ -36,7 +36,7 @@ netgpi_df = pd.read_csv(netgpi_file, sep="\t", comment="#", header=None,
 # Create a binary column indicating whether a protein is GPI-anchored
 netgpi_df["GPI_Anchored_NetGPI"] = netgpi_df["Pred_GPI_Anchored"].apply(lambda x: 1 if "GPI-Anchored" in x else 0)
 
-### 3️⃣ Merge Data ###
+### Merge Data ###
 merged_df = pd.DataFrame({"Protein_ID": protein_ids})  # Use FASTA IDs as the base
 
 # Merge all data using left joins
@@ -51,10 +51,10 @@ merged_df.fillna(0, inplace=True)
 # Rename Phobius columns
 merged_df.rename(columns={"Membrane_Bound": "Membrane_Bound_Phobius", "Secreted": "Secreted_Phobius"}, inplace=True)
 
-### 4️⃣ Save Merged Data ###
+### Save Merged Data ###
 merged_df.to_csv("merged_secreted_proteins.csv", sep="\t", index=False)
-print(f"\n✅ Merged data saved to merged_secreted_proteins.csv")
-print("\n📝 Sample Merged Data:")
+print(f"\n Merged data saved to merged_secreted_proteins.csv")
+print("\n Sample Merged Data:")
 print(merged_df.head())
 
 
