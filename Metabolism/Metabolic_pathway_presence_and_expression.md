@@ -5,7 +5,7 @@
 
 #### Salmon is a tool to quantificate transcripts from RNA data in transcripts per million (tpm)
 
-Script and input data as shown in XXX
+Script and input data as shown in:
 ```
 Assembly_and_Annotation/salmon.sh
 ```
