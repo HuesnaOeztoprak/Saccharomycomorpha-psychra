@@ -1,7 +1,7 @@
 import pandas as pd
 
 ### Extract Protein IDs from FASTA ###
-fasta_file = "Spa255_braker.dedup.fixed.fasta"
+fasta_file = "protein.fasta"
 protein_ids = []
 
 with open(fasta_file, "r") as f:
@@ -15,12 +15,12 @@ print(f" Extracted {len(protein_ids)} protein IDs from {fasta_file}")
 ### Load Prediction Data ###
 
 # SignalP results
-signalp_file = "SignalP_AllResults.fixed.csv"
+signalp_file = "SignalP_AllResults.csv"
 signalp_df = pd.read_csv(signalp_file, sep="\t", comment="#", header=None, names=["Protein_ID", "Prediction", "OTHER", "SP_Sec", "CS_Position"])
 signalp_df["SP_SignalP"] = signalp_df["Prediction"].apply(lambda x: 1 if "SP" in x else 0)
 
 # Phobius results
-phobius_file = "Phobius_summary_Spa255.tsv"
+phobius_file = "Phobius.tsv"
 phobius_df = pd.read_csv(phobius_file, sep="\t")
 phobius_df["SP_Phobius"] = phobius_df["Signal_Peptide"].apply(lambda x: 1 if x == "Y" else 0)
 
